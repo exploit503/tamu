@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.hero-slider .slick-dots {
+  bottom: 25px;
+  z-index: 20;
+}
+
+.hero-slider .slick-dots li button:before {
+  color: white;
+  opacity: 0.5;
+  font-size: 12px;
+}
+
+.hero-slider .slick-dots li.slick-active button:before {
+  color: white;
+  opacity: 1;
+}
+
+.hero-slider .slick-prev,
+.hero-slider .slick-next {
+  z-index: 20;
+}
+
+.hero-slider .slick-prev {
+  left: 25px;
+}
+
+.hero-slider .slick-next {
+  right: 25px;
+}
+
+.hero-slider .slick-prev:before,
+.hero-slider .slick-next:before {
+  font-size: 24px;
+  opacity: 0.7;
+}
+
+/* Animation classes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
