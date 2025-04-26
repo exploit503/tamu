@@ -12,22 +12,24 @@ export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Updated menuItems with explicit hrefs matching component routes
   const menuItems = [
     { label: 'Home', href: '/', section: 'home' },
-    { label: 'Services', href: '/services' },
-    { label: 'Portfolio', href: '/portfolio' }, 
-    { label: 'Team', href: '/team' },
-    { label: 'Contact', href: '/contact' }
+    { label: 'Services', href: '/services', section: 'services' },
+    { label: 'Portfolio', href: '/portfolio', section: 'portfolio' }, 
+    { label: 'Team', href: '/team', section: 'team' },
+    { label: 'Contact', href: '/contact', section: 'contact' }
   ];
 
   // Handle section detection on scroll
   useEffect(() => {
     const handleScroll = () => {
-      const sections = menuItems.map(item => item.href.substring(1));
+      const sections = menuItems.map(item => item.section || '');
       let currentSection = '';
       const offset = 100; // Match the navigation scroll offset
       
       sections.forEach(section => {
+        if (!section) return;
         const element = document.getElementById(section);
         if (element) {
           const rect = element.getBoundingClientRect();
@@ -69,14 +71,8 @@ export default function Navbar() {
   const handleNavigation = async (href: string, section?: string) => {
     setIsMenuOpen(false);
     
-    if (section) {
-      // Handle hash links (home page sections)
-      if (location.pathname !== '/') {
-        await navigate('/');
-        // Small delay to allow page to render
-        await new Promise(resolve => setTimeout(resolve, 100));
-      }
-      
+    if (section && location.pathname === '/') {
+      // Scroll to section on home page
       const element = document.getElementById(section);
       if (element) {
         window.scrollTo({
@@ -88,7 +84,7 @@ export default function Navbar() {
         console.error(`Section ${section} not found`);
       }
     } else {
-      // Handle regular page navigation
+      // Navigate to route
       await navigate(href);
     }
   };
@@ -119,15 +115,15 @@ export default function Navbar() {
                 key={index}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => handleNavigation(item.href)}
+                onClick={() => handleNavigation(item.href, item.section)}
                 className={`relative px-3 py-2 text-sm font-medium transition-colors ${
-                  activeSection === item.href.substring(1)
+                  activeSection === item.section
                     ? 'text-orange-400'
                     : 'text-white hover:text-orange-400'
                 }`}
               >
                 {item.label}
-                {activeSection === item.href.substring(1) && (
+                {activeSection === item.section && (
                   <motion.div
                     layoutId="activeIndicator"
                     className="absolute bottom-0 left-0 right-0 h-0.5 bg-orange-400"
@@ -158,6 +154,7 @@ export default function Navbar() {
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="p-2 rounded-md hover:bg-indigo-800 transition-colors"
+              aria-label="Toggle menu"
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </motion.button>
@@ -184,8 +181,7 @@ export default function Navbar() {
                   transition={{ delay: index * 0.1 }}
                   onClick={() => handleNavigation(item.href, item.section)}
                   className={`block w-full text-left px-6 py-4 rounded-lg transition-all duration-300 text-lg md:text-base ${
-                    (item.section && activeSection === item.section) ||
-                    (!item.section && location.pathname === item.href)
+                    activeSection === item.section
                       ? 'bg-indigo-800 text-orange-400'
                       : 'text-white hover:bg-indigo-800 hover:text-orange-400'
                   }`}

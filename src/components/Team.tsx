@@ -46,8 +46,7 @@ const team = [
     bio: 'Experienced in leading complex web development projects to success.',
     social: {
       github: '#',
-      linkedin: '#',
-      twitter: '#'
+      linkedin: 'https://www.linkedin.com/in/mujuni-vincent-497b3435b?trk=contact-info',
     }
   }
 ];

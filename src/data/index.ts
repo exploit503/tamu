@@ -7,23 +7,7 @@ export const images = {
     '/images/hero/hero2.jpg',
     '/images/hero/hero3.jpg'
   ],
-  projects: {
-    web: [
-      '/images/projects/web1.jpg',
-      '/images/projects/web2.jpg',
-      '/images/projects/web3.jpg'
-    ],
-    graphics: [
-      '/images/projects/graphics1.jpg',
-      '/images/projects/graphics2.jpg'
-    ]
-  },
-  team: {
-    johnSmith: '/images/team/alvin.png',
-    sarahJohnson: '/images/team/sarah-johnson.jpg',
-    michaelChen: '/images/team/michael-chen.jpg',
-    emilyDavis: '/images/team/emily-davis.jpg'
-  }
+
 };
 
 export const slides = [
@@ -41,27 +25,6 @@ export const slides = [
     image: images.hero[2],
     title: 'Reliable Hosting Solutions',
     description: 'Fast, secure, and always available'
-  }
-];
-
-export const recentProjects = [
-  {
-    title: "Tamu's Restaurant",
-    description: "A modern restaurant website with online ordering capabilities",
-    image: images.projects.web[0],
-    link: "#"
-  },
-  {
-    title: "Tamu's E-commerce",
-    description: "Full-featured online store with payment integration",
-    image: images.projects.web[1],
-    link: "#"
-  },
-  {
-    title: "Tamu's Portfolio",
-    description: "Elegant portfolio website showcasing creative work",
-    image: images.projects.web[2],
-    link: "#"
   }
 ];
 
