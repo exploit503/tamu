@@ -15,78 +15,27 @@ export default function Navbar() {
   // Updated menuItems with explicit hrefs matching component routes
   const menuItems = [
     { label: 'Home', href: '/', section: 'home' },
-    { label: 'Services', href: '/services', section: 'services' },
-    { label: 'Portfolio', href: '/portfolio', section: 'portfolio' }, 
-    { label: 'Team', href: '/team', section: 'team' },
-    { label: 'Contact', href: '/contact', section: 'contact' }
+    { label: 'Services', href: '/services' },
+    { label: 'Portfolio', href: '/portfolio' }, 
+    { label: 'Team', href: '/team' },
+    { label: 'Contact', href: '/contact' }
   ];
 
   // Handle section detection on scroll
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = menuItems.map(item => item.section || '');
-      let currentSection = '';
-      const offset = 100; // Match the navigation scroll offset
-      
-      sections.forEach(section => {
-        if (!section) return;
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= offset && rect.bottom >= offset) {
-            currentSection = section;
-          }
-        }
-      });
-      
-      setActiveSection(currentSection);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [menuItems]);
-
-  // Handle pending hash after navigation
-  useEffect(() => {
-    if (location.pathname === '/' && pendingHash) {
-      const element = document.getElementById(pendingHash);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-        setActiveSection(pendingHash);
-        setPendingHash(null);
-      }
-    }
-  }, [location.pathname, pendingHash]);
-
-  // Handle initial hash and active section
-  useEffect(() => {
-    if (location.hash) {
-      const hash = location.hash.substring(1);
-      setActiveSection(hash);
-      document.getElementById(hash)?.scrollIntoView();
-    }
+    // Set active section based on current route
+    const path = location.pathname;
+    if (path === '/') setActiveSection('home');
+    else if (path === '/services') setActiveSection('services');
+    else if (path === '/portfolio') setActiveSection('portfolio');
+    else if (path === '/team') setActiveSection('team');
+    else if (path === '/contact') setActiveSection('contact');
+    else setActiveSection('');
   }, [location]);
 
   const handleNavigation = async (href: string, section?: string) => {
     setIsMenuOpen(false);
-    
-    if (section && location.pathname === '/') {
-      // Scroll to section on home page
-      const element = document.getElementById(section);
-      if (element) {
-        window.scrollTo({
-          top: element.offsetTop - 80,
-          behavior: 'smooth'
-        });
-        setActiveSection(section);
-      } else {
-        console.error(`Section ${section} not found`);
-      }
-    } else {
-      // Navigate to route
-      await navigate(href);
-    }
+    navigate(href);
   };
 
   return (
@@ -115,15 +64,17 @@ export default function Navbar() {
                 key={index}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => handleNavigation(item.href, item.section)}
+                onClick={() => handleNavigation(item.href)}
                 className={`relative px-3 py-2 text-sm font-medium transition-colors ${
-                  activeSection === item.section
+                  (item.href === '/' && activeSection === 'home') ||
+                  (item.href !== '/' && activeSection === item.href.substring(1))
                     ? 'text-orange-400'
                     : 'text-white hover:text-orange-400'
                 }`}
               >
                 {item.label}
-                {activeSection === item.section && (
+                {((item.href === '/' && activeSection === 'home') ||
+                  (item.href !== '/' && activeSection === item.href.substring(1))) && (
                   <motion.div
                     layoutId="activeIndicator"
                     className="absolute bottom-0 left-0 right-0 h-0.5 bg-orange-400"
@@ -179,9 +130,10 @@ export default function Navbar() {
                   initial={{ x: -20, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ delay: index * 0.1 }}
-                  onClick={() => handleNavigation(item.href, item.section)}
+                  onClick={() => handleNavigation(item.href)}
                   className={`block w-full text-left px-6 py-4 rounded-lg transition-all duration-300 text-lg md:text-base ${
-                    activeSection === item.section
+                    (item.href === '/' && activeSection === 'home') ||
+                    (item.href !== '/' && activeSection === item.href.substring(1))
                       ? 'bg-indigo-800 text-orange-400'
                       : 'text-white hover:bg-indigo-800 hover:text-orange-400'
                   }`}
@@ -193,7 +145,7 @@ export default function Navbar() {
                 initial={{ x: -20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: menuItems.length * 0.1 }}
-                onClick={() => handleNavigation('/booking')}
+                onClick={() => navigate('/booking')}
                 className="block w-full text-left px-6 py-4 text-lg md:text-base text-orange-400 hover:bg-indigo-800 rounded-lg transition-all duration-300"
               >
                 Get Started

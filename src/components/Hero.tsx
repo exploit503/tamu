@@ -24,17 +24,11 @@ export default function Hero() {
   };
 
   const handleStartProject = () => {
-    const hostingSection = document.querySelector('#hosting');
-    if (hostingSection) {
-      hostingSection.scrollIntoView({ behavior: 'smooth' });
-    }
+    navigate('/hosting');
   };
 
   const handleViewWork = () => {
-    const recentProjectsSection = document.querySelector('#recent-projects');
-    if (recentProjectsSection) {
-      recentProjectsSection.scrollIntoView({ behavior: 'smooth' });
-    }
+    navigate('/portfolio');
   };
 
   const slides = [

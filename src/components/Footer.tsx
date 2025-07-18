@@ -9,9 +9,19 @@ import x from './images/footer/x.png';
 
 export default function Footer() {
   const scrollToSection = (id: string) => {
-    const element = document.querySelector(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    // Convert section IDs to routes
+    const routeMap: { [key: string]: string } = {
+      '#home': '/',
+      '#services': '/services',
+      '#portfolio': '/portfolio',
+      '#team': '/team',
+      '#contact': '/contact',
+      '#hosting': '/hosting'
+    };
+    
+    const route = routeMap[id];
+    if (route) {
+      window.location.href = route;
     }
   };
 

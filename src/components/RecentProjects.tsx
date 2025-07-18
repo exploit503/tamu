@@ -129,7 +129,7 @@ export default function RecentProjects() {
           <motion.a
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            href="#portfolio"
+            href="/portfolio"
             className="inline-flex items-center bg-indigo-900 text-white px-6 py-3 rounded-md hover:bg-indigo-800 transition-colors"
           >
             View All Projects <ArrowRight className="ml-2 h-5 w-5" />
