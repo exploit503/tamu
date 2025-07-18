@@ -17,7 +17,7 @@ const pageVariants = {
   }
 };
 
-export default function TeamPage() {
+export default function ProfilePage() {
   return (
     <motion.div
       variants={pageVariants}

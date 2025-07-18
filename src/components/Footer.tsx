@@ -14,7 +14,7 @@ export default function Footer() {
       '#home': '/',
       '#services': '/services',
       '#portfolio': '/portfolio',
-      '#team': '/team',
+      '#profile': '/profile',
       '#contact': '/contact',
       '#hosting': '/hosting'
     };
@@ -112,9 +112,9 @@ export default function Footer() {
                 </button>
               </li>
               <li>
-                <button onClick={() => scrollToSection('#team')} className="inline-flex items-center text-gray-300 hover:text-orange-400 transition-colors">
+                <button onClick={() => scrollToSection('#profile')} className="inline-flex items-center text-gray-300 hover:text-orange-400 transition-colors">
                   <Users className="h-4 w-4 mr-2" />
-                  Our Team
+                  Profile
                 </button>
               </li>
               <li>

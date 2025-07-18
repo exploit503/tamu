@@ -5,7 +5,7 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import ServicesPage from './pages/Services';
 import PortfolioPage from './pages/Portfolio';
-import TeamPage from './pages/Team';
+import ProfilePage from './pages/Profile';
 import ContactPage from './pages/Contact';
 import Hosting from './components/Hosting';
 import HostingPayment from './components/HostingPayment';
@@ -44,7 +44,7 @@ function MainContent() {
       <Route path="/" element={<Home />} />
       <Route path="/services" element={<ServicesPage />} />
       <Route path="/portfolio" element={<PortfolioPage />} />
-      <Route path="/team" element={<TeamPage />} />
+      <Route path="/profile" element={<ProfilePage />} />
       <Route path="/contact" element={<ContactPage />} />
       <Route path="/hosting" element={<Hosting />} />
       <Route path="/hosting/:plan" element={<HostingPayment />} />
